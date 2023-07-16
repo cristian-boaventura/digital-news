@@ -1,17 +1,7 @@
-"use client";
-import { useEffect } from "react";
-import { getSearch } from "@/utils/getData";
+import { ArticlesList } from "@/components";
 
-export default function Home() {
-  useEffect(() => {
-    getSearch("bitcoin").then((data) => {
-      console.log(data);
-    });
-  }, []);
+const Home = () => {
+  return <ArticlesList category={"general"} />;
+};
 
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1>News Digital</h1>
-    </main>
-  );
-}
+export default Home;

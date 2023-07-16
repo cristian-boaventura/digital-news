@@ -15,11 +15,15 @@ const NavLink = ({
 
   return (
     <li>
-      <Link href={href} className={`capitalize text-current text-base py-3 ${
-            isActive ? "active" : ""
-          }`}>
-          {icon}
-          {linkName}
+      <Link
+        href={href}
+        prefetch={false}
+        className={`py-3 text-base capitalize text-current ${
+          isActive ? "active" : ""
+        }`}
+      >
+        {icon}
+        {linkName}
       </Link>
     </li>
   );

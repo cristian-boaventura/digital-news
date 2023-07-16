@@ -4,10 +4,12 @@ import countries from "@/data/countries.json";
 import { ChangeEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateCountry } from "@/store/states/country";
+import { useRouter } from "next/navigation";
 
 const RegionsModal = () => {
   const dispatch = useDispatch();
   const [countryCode, setCountryCode] = useState("");
+  const router = useRouter();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setCountryCode(e.currentTarget.value);
@@ -24,9 +26,11 @@ const RegionsModal = () => {
         code: alpha2,
       };
 
+      router.push(`/${alpha2}`);
       return dispatch(updateCountry(newCountry));
     }
 
+    router.push("/");
     return dispatch(
       updateCountry({
         name: "Worldwide",

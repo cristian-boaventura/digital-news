@@ -1,19 +1,22 @@
 import { NextResponse } from "next/server";
+import axios from "axios";
+
+const client = axios.create({
+  baseURL: "https://newsapi.org",
+  headers: { "X-Api-Key": `${process.env.NEWS_API_KEY}` },
+});
 
 export const POST = async (request: Request) => {
-  const { query } = await request.json();
-  try {
-    const response = await fetch(
-      `https://newsapi.org/v2/everything?q=${encodeURIComponent(`${query}`)}`,
-      {
-        headers: { "X-Api-Key": `${process.env.NEWS_API_KEY}` },
-      }
+  const { query, country, category } = await request.json();
+  if (query) {
+    const { data } = await client.get(
+      `/v2/everything?q=${encodeURIComponent(`${query}`)}`
     );
-    const { articles } = await response.json();
-
-    return NextResponse.json({ data: articles });
-  } catch (error) {
-    console.error(error);
-    throw error;
+    return NextResponse.json({ data: data.articles });
+  } else {
+  const { data } = await client.get(
+    `/v2/top-headlines?country=${country}&category=${category}`
+  );
+  return NextResponse.json({ data: data.articles });
   }
 };

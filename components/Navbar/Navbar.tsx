@@ -56,12 +56,12 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
                 data-test="menu-btn"
                 className="cursor-pointer"
               >
-                <AiOutlineMenu className="w-6 h-6" />
+                <AiOutlineMenu className="h-6 w-6" />
               </label>
             </button>
 
-            <Link href={"/"}>
-              <button className="btn-ghost btn gap-x-0 grid grid-rows-2 text-lg text-current normal-case xs:flex">
+            <Link prefetch={false} href={"/"}>
+              <button className="btn-ghost btn grid grid-rows-2 gap-x-0 text-lg normal-case text-current xs:flex">
                 <p>News&nbsp;</p>
                 <p>Digital</p>
               </button>
@@ -76,7 +76,7 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
                 className="btn-ghost btn-circle btn"
                 onClick={toggleSearchView}
               >
-                <AiOutlineSearch className="w-6 h-6"/>
+                <AiOutlineSearch className="h-6 w-6" />
               </button>
             )}
             {user ? (
