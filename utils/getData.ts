@@ -4,11 +4,11 @@ export const getNews = async (
   category: string
 ) => {
   const res = await fetch(
-    new Request(`http://localhost:3000/api/news`, {
+    new Request(`https://digital-news.vercel.app/api/news`, {
       method: "POST",
       body: JSON.stringify({ query, country, category }),
-    }),
-    { next: { revalidate: 0 } }
+    })
+    // { next: { revalidate: 0 } }
   );
 
   if (res.ok) {
