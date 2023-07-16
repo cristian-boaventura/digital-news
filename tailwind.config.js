@@ -14,5 +14,5 @@ module.exports = {
     },
     extend: {},
   },
-  plugins: [require("daisyui"), require("@tailwindcss/forms")],
+  plugins: [require("daisyui")],
 };
