@@ -1,6 +1,6 @@
 "use client";
 import { useEffect } from "react";
-import { getSearch } from "./utils/getData";
+import { getSearch } from "@/utils/getData";
 
 export default function Home() {
   useEffect(() => {

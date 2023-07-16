@@ -1,8 +1,8 @@
-const createURL = (path) => {
+const createURL = (path: string) => {
   return window.location.origin + path;
 };
 
-export const getSearch = async (query) => {
+export const getSearch = async (query: string) => {
   const res = await fetch(
     new Request(createURL(`/api/news`), {
       method: "POST",
@@ -16,7 +16,7 @@ export const getSearch = async (query) => {
   }
 };
 
-export const getTopHeadlines = async (country, category) => {
+export const getTopHeadlines = async (country: string, category: string) => {
   try {
     const response = await fetch(
       `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}`,
