@@ -6,7 +6,7 @@ interface Country {
   code: string;
 }
 
-const initialState: Country = { name: "Worldwide", code: "" };
+const initialState: Country = { name: "Worldwide", code: "wd" };
 
 export const countrySlice = createSlice({
   name: "country",

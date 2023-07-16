@@ -26,15 +26,15 @@ const RegionsModal = () => {
         code: alpha2,
       };
 
-      router.push(`/${alpha2}`);
+      router.push(`/${alpha2}/general`);
       return dispatch(updateCountry(newCountry));
     }
 
-    router.push("/");
+    router.push("/wd/general");
     return dispatch(
       updateCountry({
         name: "Worldwide",
-        code: "",
+        code: "wd",
       })
     );
   };

@@ -3,13 +3,15 @@ import { getNews } from "@/utils/getData";
 import ArticleCard from "./ArticleCard";
 
 const ArticlesList = async ({
-  country = '',
-  category = '',
+  query = "",
+  country = "",
+  category = "",
 }: {
+  query?: string;
   country?: string;
   category?: string;
 }) => {
-  const articles = (await getNews("", country, category)) as Article[];
+  const articles = (await getNews(query, country, category)) as Article[];
 
   const categoryUppercase =
     category.charAt(0).toUpperCase() + category.slice(1);

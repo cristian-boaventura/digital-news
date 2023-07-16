@@ -8,7 +8,7 @@ const client = axios.create({
 
 export const POST = async (request: Request) => {
   const { query, country, category } = await request.json();
-  if (query) {
+  if (query !== "") {
     const { data } = await client.get(
       `/v2/everything?q=${encodeURIComponent(`${query}`)}`
     );

@@ -39,7 +39,7 @@ const Sidebar = () => {
           )}
           {user && <div className="m-4 h-0.5  bg-gray-400 opacity-80" />}
           <NavLink
-            href={`/${country.code}`}
+            href={`/${country.code}/general`}
             linkName={country.name}
             icon={<AiOutlineFlag className="h-6 w-6" />}
           />
