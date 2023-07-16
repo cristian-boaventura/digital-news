@@ -1,10 +1,14 @@
+const createURL = (path: string) => {
+  return window.location.origin + path;
+};
+
 export const getNews = async (
   query: string,
   country: string,
   category: string
 ) => {
   const res = await fetch(
-    new Request(`https://digital-news.vercel.app/api/news`, {
+    new Request(createURL(`/api/news`), {
       method: "POST",
       body: JSON.stringify({
         query: query,

@@ -1,8 +1,12 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
 import { Article } from "@/models";
 import { getNews } from "@/utils/getData";
 import ArticleCard from "./ArticleCard";
 
-const ArticlesList = async ({
+const ArticlesList = ({
   query = "",
   country = "",
   category = "",
@@ -11,7 +15,16 @@ const ArticlesList = async ({
   country?: string;
   category?: string;
 }) => {
-  const articles = (await getNews(query, country, category)) as Article[];
+  const [articles, setArticles] = useState<Article[]>([]);
+
+  useEffect(() => {
+    const getArticles = async () => {
+      const articles = await getNews(query, country, category);
+      setArticles(articles);
+    };
+
+    getArticles();
+  }, [query, country, category]);
 
   const categoryUppercase =
     category.charAt(0).toUpperCase() + category.slice(1);
