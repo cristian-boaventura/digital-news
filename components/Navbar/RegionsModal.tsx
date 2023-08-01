@@ -2,13 +2,19 @@
 
 import countries from "@/data/countries.json";
 import { ChangeEvent, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store";
 import { updateCountry } from "@/store/states/country";
 import { useRouter } from "next/navigation";
 
-const RegionsModal = () => {
+const RegionsModal = ({
+  checkbox,
+}: {
+  checkbox: React.MutableRefObject<HTMLInputElement>;
+}) => {
   const dispatch = useDispatch();
-  const [countryCode, setCountryCode] = useState("");
+  const country = useSelector((state: RootState) => state.country);
+  const [countryCode, setCountryCode] = useState(country.code);
   const router = useRouter();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -16,44 +22,24 @@ const RegionsModal = () => {
   };
 
   const handleUpdate = () => {
-    if (countryCode !== "wd") {
-      const { alpha2, name } = countries.filter(
-        (c) => c.alpha2 === countryCode
-      )[0];
+    const { alpha2, name } = countries.filter(
+      (country) => country.alpha2 === countryCode
+    )[0];
 
-      const newCountry = {
-        name: name,
-        code: alpha2,
-      };
+    const newCountry = {
+      name: name,
+      code: alpha2,
+    };
 
-      router.push(`/${alpha2}/general`);
-      return dispatch(updateCountry(newCountry));
-    }
-
-    router.push("/wd/general");
-    return dispatch(
-      updateCountry({
-        name: "Worldwide",
-        code: "wd",
-      })
-    );
+    router.push(`/${alpha2}/general`);
+    checkbox.current.checked = false;
+    return dispatch(updateCountry(newCountry));
   };
 
   return (
     <>
       <div className="modal" id="my-modal-2">
         <div className="modal-box h-5/6 pb-0">
-          <label className="label cursor-pointer">
-            <span className="label-text">Worldwide</span>
-            <input
-              type="radio"
-              name="radio"
-              className="radio checked:bg-blue-700"
-              value="wd"
-              defaultChecked
-              onChange={handleChange}
-            />
-          </label>
           {countries.map((country) => (
             <label className="label cursor-pointer" key={country.id}>
               <span className="label-text">{country.name}</span>
@@ -63,6 +49,7 @@ const RegionsModal = () => {
                 className="radio checked:bg-blue-700"
                 value={country.alpha2}
                 onChange={handleChange}
+                {...(countryCode === country.alpha2 && { checked: true })}
               />
             </label>
           ))}

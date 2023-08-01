@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { SearchInput, Sidebar } from "./";
 import { AiOutlineMenu, AiOutlineSearch } from "react-icons/ai";
@@ -19,8 +19,6 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useDispatch();
   const [activeSearch, setActiveSearch] = useState(false);
   const user = useSelector((state: RootState) => state.user);
-
-  const toggleSearchView = () => setActiveSearch(!activeSearch);
 
   authStateListener((user) => {
     if (user) {
@@ -53,24 +51,33 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
+  const toggleSearchView = () => setActiveSearch(!activeSearch);
+
+  const sidebarCheckbox = useRef(
+    null
+  ) as unknown as React.MutableRefObject<HTMLInputElement>;
+
   return (
     <div className="drawer">
-      <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
+      <input
+        ref={sidebarCheckbox}
+        id="my-drawer-3"
+        type="checkbox"
+        className="drawer-toggle"
+      />
 
       <div className="drawer-content flex flex-col">
         <div
           className={`navbar sticky top-0 justify-between border-b-gray-300 bg-base-100 dark:border-b-0`}
         >
           <div className="flex">
-            <button className="btn-ghost btn place-content-center p-3">
-              <label
-                htmlFor="my-drawer-3"
-                data-test="menu-btn"
-                className="cursor-pointer"
-              >
-                <AiOutlineMenu className="h-6 w-6" />
-              </label>
-            </button>
+            <label
+              htmlFor="my-drawer-3"
+              data-test="menu-btn"
+              className="btn-ghost btn cursor-pointer place-content-center p-3"
+            >
+              <AiOutlineMenu className="h-6 w-6" />
+            </label>
 
             <Link prefetch={false} href={"/"}>
               <button className="btn-ghost btn grid grid-rows-2 gap-x-0 text-lg normal-case text-current xs:flex">
@@ -104,7 +111,7 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
         </div>
         {children}
       </div>
-      <Sidebar />
+      <Sidebar checkbox={sidebarCheckbox} />
     </div>
   );
 };

@@ -1,5 +1,10 @@
 [
   {
+    "id": 9999,
+    "alpha2": "wd",
+    "name": "Worldwide"
+  },
+  {
     "id": 784,
     "alpha2": "ae",
     "alpha3": "are",

@@ -5,10 +5,12 @@ const NavLink = ({
   href,
   linkName,
   icon,
+  checkbox,
 }: {
   href: string;
   linkName: string;
   icon: JSX.Element;
+  checkbox: React.MutableRefObject<HTMLInputElement>;
 }) => {
   const currentRoute = usePathname();
   const isActive = currentRoute === href;
@@ -21,6 +23,7 @@ const NavLink = ({
         className={`py-3 text-base capitalize text-current ${
           isActive ? "active" : ""
         }`}
+        onClick={() => (checkbox.current.checked = false)}
       >
         {icon}
         {linkName}

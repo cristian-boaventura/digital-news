@@ -21,7 +21,11 @@ const categories = [
   { name: "science", icon: <ImLab className="h-6 w-6" /> },
   { name: "health", icon: <RiHealthBookLine className="h-6 w-6" /> },
 ];
-const Sidebar = () => {
+const Sidebar = ({
+  checkbox,
+}: {
+  checkbox: React.MutableRefObject<HTMLInputElement>;
+}) => {
   const country = useSelector((state: RootState) => state.country);
   const user = useSelector((state: RootState) => state.user);
 
@@ -35,6 +39,7 @@ const Sidebar = () => {
               href="/saved"
               linkName="Saved News"
               icon={<AiOutlineStar className="h-6 w-6" />}
+              checkbox={checkbox}
             />
           )}
           {user && <div className="m-4 h-0.5  bg-gray-400 opacity-80" />}
@@ -42,6 +47,7 @@ const Sidebar = () => {
             href={`/${country.code}/general`}
             linkName={country.name}
             icon={<AiOutlineFlag className="h-6 w-6" />}
+            checkbox={checkbox}
           />
           {categories.map((category, index) => (
             <NavLink
@@ -49,6 +55,7 @@ const Sidebar = () => {
               href={`/${country.code}/${category.name}`}
               linkName={category.name}
               icon={category.icon}
+              checkbox={checkbox}
             />
           ))}
           <div className="m-4 h-0.5  bg-gray-400 opacity-80" />
@@ -59,7 +66,7 @@ const Sidebar = () => {
           </li>
         </ul>
       </div>
-      <RegionsModal />
+      <RegionsModal checkbox={checkbox} />
     </>
   );
 };
