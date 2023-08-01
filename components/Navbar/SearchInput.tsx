@@ -28,7 +28,7 @@ const SearchInput = (props: SearchInputProps) => {
     e.preventDefault();
     if (!searchValue) return;
     dispatch(setSearchInput(searchValue));
-    router.push("/search");
+    router.push(`/search/${searchValue}`);
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -39,13 +39,14 @@ const SearchInput = (props: SearchInputProps) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className={`absolute top-1.5 left-2 right-32`}
+      className={`absolute left-2 right-32 top-1.5`}
+      onBlur={toggleSearchView}
     >
       <span
         className="btn-ghost btn-square btn absolute flex h-full items-center"
         onClick={toggleSearchView}
       >
-        <AiOutlineArrowLeft className="w-6 h-6" />
+        <AiOutlineArrowLeft className="h-6 w-6" />
       </span>
       <input
         type="text"
@@ -61,7 +62,7 @@ const SearchInput = (props: SearchInputProps) => {
           className="btn-ghost btn-square btn absolute inset-y-0 right-0 flex h-full items-center"
           onClick={clearSearch}
         >
-          <AiOutlineClose className="w-6 h-6" />
+          <AiOutlineClose className="h-6 w-6" />
         </span>
       )}
     </form>
