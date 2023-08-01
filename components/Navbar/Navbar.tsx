@@ -6,16 +6,29 @@ import { SearchInput, Sidebar } from "./";
 import { AiOutlineMenu, AiOutlineSearch } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store";
-import { getStore, googleSignIn, userSignOut } from "@/utils/firebase.utils";
+import {
+  getStore,
+  googleSignIn,
+  userSignOut,
+  authStateListener,
+} from "@/utils/firebase.utils";
 import { currentUser } from "@/store/states/user";
 import { setFavorites } from "@/store/states/favorites";
 
 const Navbar = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useDispatch();
-  const [isActive, setIsActive] = useState(false);
+  const [activeSearch, setActiveSearch] = useState(false);
   const user = useSelector((state: RootState) => state.user);
 
-  const toggleSearchView = () => setIsActive(!isActive);
+  const toggleSearchView = () => setActiveSearch(!activeSearch);
+
+  authStateListener((user) => {
+    if (user) {
+      dispatch(currentUser(user.uid));
+    } else {
+      dispatch(currentUser(""));
+    }
+  });
 
   const handleSignIn = async () => {
     try {
@@ -26,7 +39,6 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
       dispatch(setFavorites(stored?.favorites));
     } catch (error: any) {
       alert(error.message);
-
       console.error(error);
     }
   };
@@ -69,7 +81,7 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
           </div>
 
           <div className="mr-4">
-            {isActive ? (
+            {activeSearch ? (
               <SearchInput toggleSearchView={toggleSearchView} />
             ) : (
               <button

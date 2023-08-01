@@ -1,7 +1,11 @@
-import { ArticlesList } from "@/components";
+"use client";
+import { redirect } from "next/navigation";
+import { RootState } from "@/store";
+import { useSelector } from "react-redux";
 
 const Home = () => {
-  return <ArticlesList category={"general"} />;
+  const country = useSelector((state: RootState) => state.country);
+  redirect(`${country.code}/general`);
 };
 
 export default Home;

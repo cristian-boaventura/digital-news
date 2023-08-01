@@ -28,7 +28,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "utils/getData.ts"
+    "utils/getData.ts",
+    "middleware.ts"
   ],
   "exclude": ["node_modules"]
 }
