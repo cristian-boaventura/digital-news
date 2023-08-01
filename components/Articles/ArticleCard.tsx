@@ -67,7 +67,7 @@ const ArticleCard = ({ article }: { article: Article }) => {
         <Image
           className="h-full max-h-[175px] w-full max-w-[175px] object-cover"
           loader={imageLoader}
-          src={`${urlToImage}`}
+          src={urlToImage}
           alt={title}
           width={175}
           height={175}
